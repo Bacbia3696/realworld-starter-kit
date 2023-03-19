@@ -33,9 +33,3 @@
 #       runner: node
 #     "any.go":
 #       runner: go run
-#
-
-commit-msg:
-  commands:
-    lintmessage:
-      run: commitlint lint
