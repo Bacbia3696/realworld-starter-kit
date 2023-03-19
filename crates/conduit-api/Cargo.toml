@@ -1,15 +1,18 @@
 [package]
 name = "conduit_api"
-authors = []
-version = "0.1.0"
-edition = "2018"
+authors.workspace = true
+version.workspace = true
+edition.workspace = true
 
 [dependencies]
 axum = "0.6.10"
 clap = "4"
-serde = { version = "1", features = ["serde_derive"] }
-thiserror = "1"
 sqlx = { version = "0.6", features = ["runtime-tokio-rustls"] }
+serde.workspace = true
+thiserror.workspace = true
+eyre.workspace = true
+color-eyre.workspace = true
+abscissa_tokio = "0.7.0"
 
 [dependencies.abscissa_core]
 version = "0.7.0"

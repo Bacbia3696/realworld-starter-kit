@@ -10,11 +10,13 @@
 //! See the `impl Configurable` below for how to specify the path to the
 //! application's configuration file.
 
+mod dump_config;
 mod start;
 
+use self::dump_config::DumpConfig;
 use self::start::StartCmd;
 use crate::config::ConduitApiConfig;
-use abscissa_core::{config::Override, Command, Configurable, FrameworkError, Runnable};
+use abscissa_core::{Command, Configurable, FrameworkError, Runnable};
 use std::path::PathBuf;
 
 /// ConduitApi Configuration Filename
@@ -26,6 +28,8 @@ pub const CONFIG_FILE: &str = "conduit_api.toml";
 pub enum ConduitApiCmd {
     /// The `start` subcommand
     Start(StartCmd),
+    /// The `dump-config` subcommand
+    DumpConfig(DumpConfig),
 }
 
 /// Entry point for the application. It needs to be a struct to allow using subcommands!
@@ -75,16 +79,10 @@ impl Configurable<ConduitApiConfig> for EntryPoint {
     ///
     /// This can be safely deleted if you don't want to override config
     /// settings from command-line options.
-    fn process_config(
-        &self,
-        config: ConduitApiConfig,
-    ) -> Result<ConduitApiConfig, FrameworkError> {
+    fn process_config(&self, config: ConduitApiConfig) -> Result<ConduitApiConfig, FrameworkError> {
         match &self.cmd {
-            ConduitApiCmd::Start(cmd) => cmd.override_config(config),
-            //
-            // If you don't need special overrides for some
-            // subcommands, you can just use a catch all
-            // _ => Ok(config),
+            ConduitApiCmd::Start(_) => Ok(config),
+            ConduitApiCmd::DumpConfig(_) => Ok(config),
         }
     }
 }

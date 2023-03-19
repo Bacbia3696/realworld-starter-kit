@@ -2,10 +2,9 @@
 
 /// App-local prelude includes `app_reader()`/`app_writer()`/`app_config()`
 /// accessors along with logging macros. Customize as you see fit.
-use crate::prelude::*;
+use crate::{prelude::*, routes};
 
-use crate::config::ConduitApiConfig;
-use abscissa_core::{config, Command, FrameworkError, Runnable};
+use abscissa_core::{Command, Runnable};
 
 /// `start` subcommand
 ///
@@ -23,23 +22,26 @@ pub struct StartCmd {
 impl Runnable for StartCmd {
     /// Start the application.
     fn run(&self) {
-        let config = APP.config();
-        println!("Hello, {}!", &config.hello.recipient);
+        abscissa_tokio::run(&APP, async {
+            self.cmd().await.unwrap();
+        })
+        .unwrap();
     }
 }
 
-impl config::Override<ConduitApiConfig> for StartCmd {
-    // Process the given command line options, overriding settings from
-    // a configuration file using explicit flags taken from command-line
-    // arguments.
-    fn override_config(
-        &self,
-        mut config: ConduitApiConfig,
-    ) -> Result<ConduitApiConfig, FrameworkError> {
-        if !self.recipient.is_empty() {
-            config.hello.recipient = self.recipient.join(" ");
-        }
+impl StartCmd {
+    async fn cmd(&self) -> eyre::Result<()> {
+        let config = APP.config();
+        println!("Listenning on {}...", config.listen_address);
+        let app = axum::Router::new()
+            .nest("/api", routes::users::router())
+            .nest("/api", routes::profiles::router())
+            .nest("/api", routes::tags::router())
+            .nest("/api", routes::articles::router());
 
-        Ok(config)
+        axum::Server::bind(&config.listen_address.parse()?)
+            .serve(app.into_make_service())
+            .await?;
+        Ok(())
     }
 }

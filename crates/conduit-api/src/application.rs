@@ -6,6 +6,7 @@ use abscissa_core::{
     config::{self, CfgCell},
     trace, Application, FrameworkError, StandardPaths,
 };
+use abscissa_tokio::TokioComponent;
 
 /// Application state
 pub static APP: AppCell<ConduitApiApp> = AppCell::new();
@@ -59,7 +60,9 @@ impl Application for ConduitApiApp {
     /// beyond the default ones provided by the framework, this is the place
     /// to do so.
     fn register_components(&mut self, command: &Self::Cmd) -> Result<(), FrameworkError> {
-        let framework_components = self.framework_components(command)?;
+        let mut framework_components = self.framework_components(command)?;
+        // Create `TokioComponent` and add it to your app's components here:
+        framework_components.push(Box::new(TokioComponent::new()?));
         let mut app_components = self.state.components_mut();
         app_components.register(framework_components)
     }

@@ -12,6 +12,8 @@ use serde::{Deserialize, Serialize};
 pub struct ConduitApiConfig {
     /// An example configuration section
     pub hello: ExampleSection,
+    /// Listen address
+    pub listen_address: String,
 }
 
 /// Default configuration settings.
@@ -22,6 +24,7 @@ impl Default for ConduitApiConfig {
     fn default() -> Self {
         Self {
             hello: ExampleSection::default(),
+            listen_address: String::from("127.0.0.1:8080"),
         }
     }
 }
