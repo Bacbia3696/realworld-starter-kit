@@ -1,0 +1,27 @@
+# register
+POST http://localhost:8081/api/users
+content-type: application/json
+
+{
+  "user":{
+    "username": "Jacob fucker dick asd",
+    "email": "jake@jake.jakeasd.asd",
+    "password": "jakejake"
+  }
+}
+
+# login
+POST http://localhost:8081/api/users/login
+content-type: application/json
+
+{
+  "user":{
+    "email": "jake@jake.jakeasd.asd",
+    "password": "jakejakea"
+  }
+}
+
+# get current
+GET http://localhost:8081/api/user
+content-type: application/json
+authorization: Bearer oh-this-is-your-fucking-token

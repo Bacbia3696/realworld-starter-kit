@@ -1,12 +1,11 @@
 [workspace]
 members = [
-    # our runnable applications
-    "crates/conduit-api",
+  # our runnable applications
+  "crates/conduit-api",
 ]
 
 [workspace.package]
 edition = "2021"
-name = "conduit"
 version = "0.1.0"
 authors = ["DatNguyen <datnt3696@gmail.com>"]
 description = "Rust implement of conduit app"
