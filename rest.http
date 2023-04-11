@@ -4,8 +4,8 @@ content-type: application/json
 
 {
   "user":{
-    "username": "Jacob fucker dick asd",
-    "email": "jake@jake.jakeasd.asd",
+    "username": "Jacob2",
+    "email": "jake@jake.com",
     "password": "jakejake"
   }
 }
@@ -16,12 +16,12 @@ content-type: application/json
 
 {
   "user":{
-    "email": "jake@jake.jakeasd.asd",
-    "password": "jakejakea"
+    "email": "jake@jake.com",
+    "password": "jakejake"
   }
 }
 
 # get current
 GET http://localhost:8081/api/user
 content-type: application/json
-authorization: Bearer oh-this-is-your-fucking-token
+authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWtlQGpha2UuY29tIiwidXNlcl9pZCI6ODU1NTg0MjAxNzM5ODI5MjQ5LCJleHAiOjE2ODExNzgxMDd9.qDCOkUL0kLrSC_xiFVS_zWJhe5LR2rgjglWv1S0qFjM

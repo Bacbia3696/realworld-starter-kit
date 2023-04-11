@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 
+// ====== User ===============
 #[derive(Serialize, Deserialize, Default, Debug)]
 pub struct UserDto {
     #[serde(skip_serializing, skip_deserializing)]
@@ -10,6 +11,12 @@ pub struct UserDto {
     pub image: Option<String>,
     pub token: String,
 }
+
+#[derive(Serialize, Deserialize, Default, Debug)]
+pub struct UserResponse {
+    pub user: UserDto,
+}
+// ===========================================
 
 // ==== Registration =====
 #[derive(Serialize, Deserialize, Default, Debug)]
@@ -38,26 +45,18 @@ pub struct LoginUserDto {
 pub struct LoginUserRequest {
     pub user: LoginUserDto,
 }
-#[derive(Serialize, Deserialize, Default, Debug)]
-pub struct LoginUserRespone {
-    pub user: UserDto,
-}
 // ===========================================
 
 // ==== Update User =====
 #[derive(Serialize, Deserialize, Default, Debug)]
 pub struct UpdateUserDto {
-    pub username: String,
-    pub email: String,
+    pub username: Option<String>,
+    pub email: Option<String>,
     pub bio: Option<String>,
     pub image: Option<String>,
 }
 #[derive(Serialize, Deserialize, Default, Debug)]
 pub struct UpdateUserRequest {
-    pub user: LoginUserDto,
-}
-#[derive(Serialize, Deserialize, Default, Debug)]
-pub struct UpdateUserResponse {
-    pub user: UserDto,
+    pub user: UpdateUserDto,
 }
 // ===========================================

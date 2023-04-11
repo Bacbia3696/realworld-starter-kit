@@ -4,7 +4,7 @@ use axum::{
 };
 use error_stack::Report;
 use http::StatusCode;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug)]
 pub struct OurReport(error_stack::Report<ConduitError>);
@@ -21,7 +21,7 @@ pub enum ConduitError {
     InternalServerErrorWithCtx(String),
     #[error("wrong email or password")]
     InvalidCredential,
-    #[error("user existed")]
+    #[error("user already existed")]
     ExistedUser,
 
     #[error(transparent)]
