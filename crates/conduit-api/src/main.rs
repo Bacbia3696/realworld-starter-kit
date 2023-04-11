@@ -35,7 +35,7 @@ async fn main() -> eyre::Result<()> {
         .merge(user::new_route(service_registry.clone(), config))
         .merge(profile::new_route(service_registry.clone()));
 
-    let app: _ = axum::Router::new()
+    let app = axum::Router::new()
         .nest("/api", rout)
         // Enables logging. Use `RUST_LOG=tower_http=debug`
         .layer(TraceLayer::new_for_http());
