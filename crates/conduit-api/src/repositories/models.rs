@@ -9,8 +9,8 @@ pub struct UserEntity {
     pub username: String,
     pub email: String,
     pub password: String,
-    pub bio: String,
-    pub image: String,
+    pub bio: Option<String>,
+    pub image: Option<String>,
 }
 
 impl UserEntity {
@@ -19,8 +19,8 @@ impl UserEntity {
             id: self.id,
             email: self.email,
             username: self.username,
-            bio: Some(self.bio),
-            image: Some(self.image),
+            bio: self.bio,
+            image: self.image,
             token,
         }
     }

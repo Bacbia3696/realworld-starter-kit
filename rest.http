@@ -4,8 +4,8 @@ content-type: application/json
 
 {
   "user":{
-    "username": "Jacob2",
-    "email": "jake@jake.com",
+    "username": "Jacob4",
+    "email": "jake2@jake.com.vn",
     "password": "jakejake"
   }
 }
@@ -16,7 +16,7 @@ content-type: application/json
 
 {
   "user":{
-    "email": "jake@jake.com",
+    "email": "jake2@jake.com.vn",
     "password": "jakejake"
   }
 }
@@ -24,4 +24,15 @@ content-type: application/json
 # get current
 GET http://localhost:8081/api/user
 content-type: application/json
-authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWtlQGpha2UuY29tIiwidXNlcl9pZCI6ODU1NTg0MjAxNzM5ODI5MjQ5LCJleHAiOjE2ODExNzgxMDd9.qDCOkUL0kLrSC_xiFVS_zWJhe5LR2rgjglWv1S0qFjM
+authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWtlQGpha2UuY29tLnZuIiwidXNlcl9pZCI6ODU4MzI4Njk1NjcwNDA3MTY5LCJleHAiOjE2ODIwMTYwNjN9.lQTSIG0VkPRuJdOe2FpeWlfVjsDXuXmWC7OoeJ0SitE
+
+# update user
+PUT http://localhost:8081/api/user
+content-type: application/json
+authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWtlQGpha2UuY29tLnZuIiwidXNlcl9pZCI6ODU4MzI4Njk1NjcwNDA3MTY5LCJleHAiOjE2ODIwMTYwNjN9.lQTSIG0VkPRuJdOe2FpeWlfVjsDXuXmWC7OoeJ0SitE
+
+{
+  "user": {
+    "email": "nsdaaaaaaew@gmail.com"
+  }
+}

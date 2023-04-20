@@ -1,8 +1,10 @@
+use core::time;
+
 use crate::{
     errors::{ConduitError, ConduitResult},
     repositories::models::UserEntity,
 };
-use sqlx::{error::ErrorKind, PgPool};
+use sqlx::{error::ErrorKind, types::time::OffsetDateTime, PgPool};
 
 #[derive(Clone)]
 pub struct UserRepo {
@@ -57,5 +59,39 @@ impl UserRepo {
                 ConduitError::from(err).into()
             }
         })
+    }
+
+    pub async fn get_user_by_id(&self, id: i64) -> ConduitResult<UserEntity> {
+        let user = sqlx::query_as!(
+            UserEntity,
+            r#"select id, username, email, password, bio, image, updated_at, created_at from "user" where id = $1"#,
+            id
+        ).fetch_one(&self.pool).await?;
+        Ok(user)
+    }
+
+    pub async fn update_user(&self, user: &UserEntity) -> ConduitResult<()> {
+        let UserEntity {
+            id,
+            username,
+            email,
+            password,
+            bio,
+            image,
+            ..
+        } = &user;
+        sqlx::query!(
+            r#"update "user" set username=$1, email=$2, password=$3, bio=$4, image=$5, updated_at=$6 where id = $7"#,
+            username,
+            email,
+            password,
+            bio.as_ref(),
+            image.as_ref(),
+            OffsetDateTime::now_utc(),
+            id,
+        )
+        .execute(&self.pool)
+        .await?;
+        Ok(())
     }
 }

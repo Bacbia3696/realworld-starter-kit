@@ -51,7 +51,7 @@ async fn main() -> eyre::Result<()> {
 }
 
 async fn root() -> impl IntoResponse {
-    tracing::info!("root api");
+   tracing::info!("root api");
     "Hello world!"
 }
 

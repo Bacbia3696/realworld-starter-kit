@@ -4,7 +4,7 @@ use axum::{
 };
 use error_stack::Report;
 use http::StatusCode;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 
 #[derive(Debug)]
 pub struct OurReport(error_stack::Report<ConduitError>);
@@ -57,10 +57,11 @@ struct ResponseMsg {
 
 impl<E> From<E> for OurReport
 where
-    E: Into<error_stack::Report<ConduitError>>,
+    E: Into<ConduitError>,
 {
     fn from(value: E) -> Self {
-        let tp: Report<ConduitError> = value.into();
+        let err: ConduitError = value.into();
+        let tp: Report<ConduitError> = error_stack::report!(err);
         OurReport(tp)
     }
 }

@@ -9,6 +9,7 @@ pub struct UserDto {
     pub email: String,
     pub bio: Option<String>,
     pub image: Option<String>,
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub token: String,
 }
 
@@ -54,6 +55,7 @@ pub struct UpdateUserDto {
     pub email: Option<String>,
     pub bio: Option<String>,
     pub image: Option<String>,
+    pub password: Option<String>,
 }
 #[derive(Serialize, Deserialize, Default, Debug)]
 pub struct UpdateUserRequest {
